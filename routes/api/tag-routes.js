@@ -36,8 +36,16 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
-  // create a new tag
+router.post('/', async (req, res) => {
+  // Create a new tag
+  try {
+    const newTag = await Tag.create(req.body);
+
+    res.status(201).json(newTag);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
 });
 
 router.put('/:id', (req, res) => {
