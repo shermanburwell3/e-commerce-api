@@ -51,10 +51,10 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // Update a tag by its id
   try {
-    const updatedTag = await Tag.update(
-      { name: req.body.name }, 
-      { where: { id: req.params.id } }
-    );
+    const updatedTag = await Tag.update( req.body, {
+        where: { 
+          id: req.params.id 
+    }});
 
     if (updatedTag[0] === 0) {
       return res.status(404).json({ message: 'Tag not found' });
@@ -67,23 +67,23 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', (req, res) => {
-  router.delete('/:id', async (req, res) => {
-    try {
-      const deletedTagCount = await Tag.destroy({
-        where: { id: req.params.id }
-      });
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedTagCount = await Tag.destroy({
+      where: { id: req.params.id }
+    });
   
-      if (deletedTagCount === 0) {
-        return res.status(404).json({ message: 'Tag not found' });
-      }
-  
-      res.status(200).json({ message: 'Tag deleted successfully' });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Server Error' });
+    if (deletedTagCount === 0) {
+      return res.status(404).json({ message: 'Tag not found' });
     }
-  });
+  
+    res.status(200).json({ message: 'Tag deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
 });
+
 
 module.exports = router;
