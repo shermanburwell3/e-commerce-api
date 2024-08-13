@@ -16,7 +16,7 @@ DB_USER=
 DB_PASSWORD=
 DB_URL=
 
-Use your own credentials for eac field. Do not change the variable names.
+Use your own credentials for each field. Do not change the variable names.
 
 ## Usage
 
